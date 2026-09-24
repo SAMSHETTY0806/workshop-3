@@ -51,6 +51,13 @@ Refer to technology-specific instruction files:
 - Use props for configuration, not duplication
 - Document component APIs with TypeScript types
 
+### Commenting, Intent, and Props Contracts
+
+- Document why a component exists or why a decision is non-obvious; do not add comments that describe the obvious code path.
+- Treat outdated comments as defects: update or delete them when the component behavior changes.
+- Reusable components should expose a typed `Props` interface and document the contract in the interface or with a brief summary above it.
+- Prefer comments that explain trade-offs, edge cases, or required behavior rather than comments that restate the markup or logic below.
+
 ## Development Workflow
 
 1. **Choose the right tool**: 

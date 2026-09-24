@@ -52,3 +52,10 @@ ALL UI components MUST use dark theme colors:
 - Smooth transitions: `transition-all duration-200 ease-in-out`
 - Shadows for depth: `shadow-md`, `shadow-lg`, `shadow-xl`
 - Focus states for accessibility: `focus:ring-2 focus:ring-blue-500`
+
+## TypeScript and Commenting Standards
+
+- Write explicit types for exported functions, helper return values, and shared object contracts.
+- Prefer `import type` for type-only imports and keep reusable object shapes in `interface` definitions.
+- Keep comments focused on intent, constraints, and non-obvious decisions. Do not write comments that merely re-state what the code already says.
+- When possible, enforce these conventions in ESLint so the rules are consistent across the codebase (`@typescript-eslint/consistent-type-imports`, `@typescript-eslint/consistent-type-definitions`, and the repo's existing no-unused-vars rule).

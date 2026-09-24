@@ -24,6 +24,45 @@ test.describe('Game Listing and Navigation', () => {
     });
   });
 
+  test('should filter games by category and publisher', async ({ page }) => {
+    await page.goto('/');
+    const cards = page.locator('[data-testid="game-card"]:visible');
+    await expect(cards).toHaveCount(21);
+    const categoryFilter = page.locator('input[name="category"]').first();
+
+    await test.step('Filter by category', async () => {
+      await categoryFilter.check();
+      await expect(cards).toHaveCount(5);
+      await expect(page).toHaveURL(/category=/);
+    });
+
+    await test.step('Combine category and publisher filters', async () => {
+      await page.getByTestId('publisher-filter').selectOption('1');
+      await expect(cards).toHaveCount(2);
+      await expect(page.getByTestId('filter-results-status')).toHaveText('2 games shown');
+    });
+
+    await test.step('Clear filters', async () => {
+      await page.getByTestId('clear-filters').click();
+      await expect(cards).toHaveCount(21);
+      await expect(page).toHaveURL('/');
+    });
+  });
+
+  test('should restore filters from the URL and show an empty state for no matches', async ({ page }) => {
+    await page.goto('/');
+    const categoryFilters = page.locator('input[name="category"]');
+    const firstCategory = await categoryFilters.nth(0).getAttribute('value');
+    const secondCategory = await categoryFilters.nth(1).getAttribute('value');
+    const firstPublisher = await page.locator('select[name="publisher"] option').nth(1).getAttribute('value');
+    await page.goto(`/?category=${firstCategory}&category=${secondCategory}&publisher=${firstPublisher}`);
+    await expect(categoryFilters.nth(0)).toBeChecked();
+    await expect(categoryFilters.nth(1)).toBeChecked();
+    await expect(page.getByTestId('publisher-filter')).toHaveValue(firstPublisher ?? '');
+    await expect(page.locator('[data-testid="game-card"]:visible')).toHaveCount(3);
+
+  });
+
   test('should navigate to correct game details page when clicking on a game', async ({ page }) => {
     let gameId: string | null;
     let gameTitle: string | null;

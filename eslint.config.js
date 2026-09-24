@@ -27,6 +27,15 @@ export default [
         "error",
         { argsIgnorePattern: "^_", varsIgnorePattern: "^_" },
       ],
+      // Prefer type-only imports and reusable interfaces for shared object contracts
+      "@typescript-eslint/consistent-type-imports": [
+        "error",
+        { prefer: "type-imports" },
+      ],
+      "@typescript-eslint/consistent-type-definitions": [
+        "error",
+        "interface",
+      ],
     },
   },
 

@@ -46,6 +46,8 @@ npm run dev
 
 `predev` migrates and seeds the local database first. Then navigate to the [website](http://localhost:4321) to see the site!
 
+The home page catalog can be filtered by one or more categories and by publisher. Category selections use inclusive matching, publisher and category selections can be combined, and the current filters are stored in the URL query string for sharing or bookmarking.
+
 To preview a production build instead:
 
 ```bash
